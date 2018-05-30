@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<project name="Jacoco" xmlns:jacoco="antlib:org.jacoco.ant" default="jacoco">
+	
+	<!--Jacoco的安装路径-->
+	<property name="jacocoantPath" value="/Users/Ls/jacoco/jacoco-0.8.1/lib/jacocoant.jar"/>
+	<property name="resultDir" location="/Users/Ls/jacoco/result"/>
+	<!--最终生成.exec文件的路径，Jacoco就是根据这个文件生成最终的报告的-->
+	<property name="jacocoexecPath" value="${resultDir}/jacoco.exec"/>
+	<!--生成覆盖率报告的路径-->
+	<property name="reportfolderPath" value="${resultDir}/report/"/>
+	<!--远程tomcat服务的ip地址-->
+	<property name="server_ip" value="127.0.0.1"/>
+	<!--前面配置的远程tomcat服务打开的端口，要跟上面配置的一样-->
+	<property name="server_port" value="8044"/>
+	
+
+	<!--源代码路径-->
+	<property name="srcPath" value="/Users/Ls/git/chat/Chat0.7/src" />
+	<!--.class文件路径-->
+	<property name="classPath" value="/Users/Ls/git/chat/Chat0.7/bin" />
+	
+
+	<!--让ant知道去哪儿找Jacoco-->
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+		<classpath path="${jacocoantPath}" />
+	</taskdef>
+	
+	<!--dump任务:根据前面配置的ip地址、端口号，访问目标tomcat服务，并生成.exec文件。-->
+	<target name="dump">
+		<jacoco:dump address="${server_ip}" port="${server_port}" reset="true" destfile="${jacocoexecPath}" append="false"/>
+	</target>
+
+</project>
