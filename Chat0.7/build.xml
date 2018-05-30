@@ -30,4 +30,28 @@
 		<jacoco:dump address="${server_ip}" port="${server_port}" reset="true" destfile="${jacocoexecPath}" append="false"/>
 	</target>
 
+
+	<target name="report">
+		<delete dir="${reportfolderPath}" />
+		<mkdir dir="${reportfolderPath}" />
+
+		<jacoco:report>
+			<executiondata>
+				<file file="${jacocoexecPath}" />
+			</executiondata>
+		
+			<structure name="JaCoCo Report">
+				<group name="Check Order related">
+					<classfiles>
+						<fileset dir="${classPath}" />
+					</classfiles>
+					<sourcefiles encoding="gbk">
+						<fileset dir="${srcPath}" />
+					</sourcefiles>
+				</group>
+			</structure>
+
+			<html destdir="${reportfolderPath}" encoding="utf-8" /> 
+		</jacoco:report>
+	</target>
 </project>
